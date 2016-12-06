@@ -14,12 +14,15 @@ public class AuthenticationService implements Authentication {
         this.dao = new UserDaoImpl();
     }
 
-    public void auth() {
+    public boolean auth() {
         Map<String, String> result = dao.select();
+        if (result.get("token") == null) {
+            return false;
+        }
+        return true;
     }
 
-    public void updateUser() {
-        User user = new User();
-        int result = dao.update(user);
+    public int updateUser(User user) {
+        return dao.update(user);
     }
 }

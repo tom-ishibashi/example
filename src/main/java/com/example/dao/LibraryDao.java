@@ -1,7 +1,13 @@
 package com.example.dao;
 
-/**
- * Created by bassyMac on 2016/12/06.
- */
-public class LibraryDao {
+import com.example.entity.Library;
+
+import java.util.List;
+import java.util.Map;
+
+public interface LibraryDao {
+    
+    public Library selectLibraryByCondition(Map<String, String> condition);
+    
+    public List<Library> selectLibraries();
 }

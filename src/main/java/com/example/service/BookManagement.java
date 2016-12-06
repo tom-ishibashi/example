@@ -1,5 +1,5 @@
 package com.example.service;
 
-public interface BusinessLogic {
+public interface BookManagement {
     public void execute();
 }
