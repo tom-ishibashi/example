@@ -5,10 +5,12 @@ import com.example.dao.BookDaoImpl;
 import com.example.dao.LibraryDao;
 import com.example.dao.LibraryDaoImpl;
 import com.example.entity.Book;
+import com.example.entity.Library;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BookManagementService implements BookManagement {
     
@@ -27,14 +29,21 @@ public class BookManagementService implements BookManagement {
         conditions.put("param1", "param");
         
         List<Book> books = bookDao.selectBooksByConditions(conditions);
+        books.forEach(e -> {
+            Book book = new Book();
+            book.setTitle(e.getTitle());
+            book.setGenre(e.getGenre());
+            book.setAuthor(e.getAuthor());
+            book.setPulished(e.getPulished());            
+            bookDao.update(book);
+            bookDao.insert(book);
+        });
         
-        Book book = new Book();
-        book.setTitle("title");
-        book.setGenre("genre");
-        book.setAuthor("author");
-        book.setPulished("20151025");
-        
-        bookDao.update(book);
-        bookDao.insert(book);
+        List<Library> libraries = libraryDao.selectLibraries();
+        List<String> libraryNames = libraries
+                        .stream()
+                        .filter(s -> s.getName().startsWith("library_"))
+                        .map(s -> s.getName())
+                        .collect(Collectors.toList());
     }
 }

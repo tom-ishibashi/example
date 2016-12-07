@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface UserDao {
 
-    public Map<String, String> select();
+    public User selectUserByCondition(Map<String, String> condition);
 
     public int update(User user);
 }
